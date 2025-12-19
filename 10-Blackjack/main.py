@@ -7,6 +7,9 @@ def deal_card():
 
 def calculate_score(player_cards):
     score=0
+    if 11 in player_cards and sum(player_cards)>21:
+        player_cards.remove(11)
+        player_cards.append(1)
     for card in player_cards:
         score += card
     return score
@@ -45,9 +48,6 @@ def blackjack():
         print(f"your cards: {user_cards} , current score: {user_score}")
         print(f"Dealer's first card: {dealer_cards[0]}")
 
-        if 11 in user_cards and user_score > 21:
-            user_cards.remove(11)
-            user_cards.append(1)
 
         if user_score==21 or dealer_score==21 or user_score>21:
             game_over=True
@@ -55,7 +55,7 @@ def blackjack():
             want_card=input("Type 'y' to get another card, type 'n' to pass: ")
             if want_card=="y":
                 user_cards.append(deal_card())
-
+                
             elif want_card=="n":
                 game_over=True
 
@@ -63,9 +63,6 @@ def blackjack():
         dealer_cards.append(deal_card())
         dealer_score=calculate_score(dealer_cards)
 
-    if 11 in dealer_cards and dealer_score>21:
-        dealer_cards.remove(11)
-        dealer_cards.append(1)
 
     print(f"your final hand: {user_cards}, your final score: {user_score}")
     print(f"Dealers final hand: {dealer_cards}, final score: {dealer_score}")
