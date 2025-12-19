@@ -84,9 +84,11 @@ while is_on:
         print(f"coffee: {resources['coffee']}g")
         print(f"money: {money}$")
 
-    else:
+    elif choice in MENU:
         drink = MENU[choice]
         if resources_sufficient(drink['ingredients']):
             payment = process_coins()
             if transaction_successful(drink['cost'],payment):
                 make_coffee(drink['ingredients'],choice)
+    else:
+        print("Invalid choice. Please try again.")
