@@ -9,7 +9,7 @@ def difficulty(choice):
     elif choice =="hard":
         attempts = 5
     else:
-        return "no"
+        return 0
     return attempts
 
 
