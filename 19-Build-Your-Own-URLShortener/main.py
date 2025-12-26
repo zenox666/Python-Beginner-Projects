@@ -17,7 +17,7 @@ class URLShortener:
                 with open(DATA_FILE, 'r') as f:
                     self.url_mapping = json.load(f)
                 print(f"Loaded {len(self.url_mapping)} existing URL mappings.")
-            except:
+            except (json.JSONDecodeError, IOError):
                 print("Starting with empty URL database.")
     
     def save_data(self):
@@ -26,7 +26,11 @@ class URLShortener:
             json.dump(self.url_mapping, f, indent=2)
     
     def generate_short_code(self, url):
-        """Generate a short code for the URL using hashing"""
+        """Generate a short code for the URL using hashing
+        
+        Note: MD5 is used here for generating short codes in this educational project.
+        MD5 should NOT be used for security purposes in production applications.
+        """
         # Create a hash of the URL
         hash_object = hashlib.md5(url.encode())
         hash_hex = hash_object.hexdigest()
